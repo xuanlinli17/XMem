@@ -36,7 +36,8 @@ device = 'cuda:0'
 network = XMem(config, './saves/XMem.pth').eval().to(device)
 
 cap = cv2.VideoCapture('/home/xuanlin/Downloads/20230815_205733_cse_2_pink_mugs.mp4')
-frameCount = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+read_every = 4
+frameCount = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) // read_every
 frameWidth = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frameHeight = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
@@ -48,11 +49,20 @@ num_objects = len(np.unique(mask)) - 1
 print("num objects", num_objects)
 
 fc = 0
+fc_all = 0
 ret = True
 
-while (fc < frameCount  and ret):
-    ret, buf[fc] = cap.read()
-    fc += 1
+while (fc < frameCount and ret):
+    if fc_all % read_every == 0:
+        ret, buf[fc] = cap.read()
+        fc += 1
+    else:
+        ret, _ = cap.read()
+    fc_all += 1
+
+# while (fc < frameCount  and ret):
+#     ret, buf[fc] = cap.read()
+#     fc += 1
 
 from inference.interact.interactive_utils import image_to_torch, index_numpy_to_one_hot_torch, torch_prob_to_numpy_mask, overlay_davis
 
