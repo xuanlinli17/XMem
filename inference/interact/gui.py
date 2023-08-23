@@ -33,9 +33,9 @@ from PySide6.QtWidgets import (QWidget, QApplication, QComboBox, QCheckBox,
 from PySide6.QtGui import QPixmap, QKeySequence, QImage, QTextCursor, QIcon, QShortcut
 from PySide6.QtCore import Qt, QTimer
 
-from model.network import XMem
+from XMem.model.network import XMem
 
-from inference.inference_core import InferenceCore
+from ..inference_core import InferenceCore
 from .s2m_controller import S2MController
 from .fbrs_controller import FBRSController
 

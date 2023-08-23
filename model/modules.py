@@ -14,9 +14,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from model.group_modules import *
-from model import resnet
-from model.cbam import CBAM
+from XMem.model.group_modules import *
+from XMem.model import resnet
+from XMem.model.cbam import CBAM
 
 
 class FeatureFusionBlock(nn.Module):
